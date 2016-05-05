@@ -35,7 +35,7 @@
 Summary:        High-performance, full-featured text search engine
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        5.4.1
-Release:        2.1%{?dist}
+Release:        2.2%{?dist}
 Epoch:          0
 License:        ASL 2.0
 URL:            http://lucene.apache.org/
@@ -290,16 +290,22 @@ set -e -x
 %files -f .mfiles-lucene-core
 %{!?_licensedir:%global license %%doc}
 %dir %{_javadir}/%{pkg_name}
-%doc CHANGES.txt README.txt MIGRATE.txt
-%license LICENSE.txt NOTICE.txt
+%dir %{_jnidir}/%{pkg_name}
+%dir %{_mavenpomdir}/%{pkg_name}
+%doc LICENSE.txt NOTICE.txt CHANGES.txt README.txt MIGRATE.txt
 
 %files parent -f .mfiles-lucene-parent
+%dir %{_mavenpomdir}/%{pkg_name}
+%doc LICENSE.txt NOTICE.txt
 %files solr-grandparent -f .mfiles-lucene-solr-grandparent
+%dir %{_mavenpomdir}/%{pkg_name}
+%doc LICENSE.txt NOTICE.txt
 %files backward-codecs -f .mfiles-lucene-backward-codecs
 %files replicator -f .mfiles-lucene-replicator
 %files grouping -f .mfiles-lucene-grouping
 %files highlighter -f .mfiles-lucene-highlighter
 %files misc -f .mfiles-lucene-misc
+%dir %{_jnidir}/%{pkg_name}
 %files memory -f .mfiles-lucene-memory
 %files classification -f .mfiles-lucene-classification
 %files join -f .mfiles-lucene-join
@@ -312,9 +318,12 @@ set -e -x
 %files queryparser -f .mfiles-lucene-queryparser
 %files analyzers-smartcn -f .mfiles-lucene-analyzers-smartcn
 %files javadoc -f .mfiles-javadoc
-%license LICENSE.txt NOTICE.txt
+%doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Mar 31 2016 Michal Srb <msrb@redhat.com> - 0:5.4.1-2.2
+- Fix directory ownership (Resolves: rhbz#1319277)
+
 * Tue Jan 26 2016 Michal Srb <msrb@redhat.com> - 0:5.4.1-2.1
 - Prepare for SCL build
 
