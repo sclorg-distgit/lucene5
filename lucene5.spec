@@ -35,7 +35,7 @@
 Summary:        High-performance, full-featured text search engine
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        5.4.1
-Release:        2.2%{?dist}
+Release:        2.3%{?dist}
 Epoch:          0
 License:        ASL 2.0
 URL:            http://lucene.apache.org/
@@ -68,6 +68,9 @@ BuildRequires:  %{?scl_prefix_maven}apache-parent
 BuildRequires:  %{?scl_prefix}junit
 #BuildRequires:  randomizedtesting-junit4-ant
 #BuildRequires:  randomizedtesting-runner
+
+# Workaround for bug in javapackages dependency generator (rhbz#1414716)
+BuildRequires:  %{?scl_prefix}lucene-solr-grandparent
 
 Provides:       %{name}-core = %{epoch}:%{version}-%{release}
 
@@ -321,6 +324,10 @@ set -e -x
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 19 2017 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:5.4.1-2.3
+- Add workaround for bug in javapackages dependency generator
+- Resolves: rhbz#1414716
+
 * Thu Mar 31 2016 Michal Srb <msrb@redhat.com> - 0:5.4.1-2.2
 - Fix directory ownership (Resolves: rhbz#1319277)
 
